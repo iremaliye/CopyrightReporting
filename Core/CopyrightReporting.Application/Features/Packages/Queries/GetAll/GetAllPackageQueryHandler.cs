@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CopyrightReporting.Application.Features.Packages.Queries.GetAll
 {
-    public record GetAllPackageQueryRequest() : IRequest<List<PackageDTO>>;
-    public class GetAllProvidersQueryHandler(IBaseRepository<Package> _packageRepository) : IRequestHandler<GetAllPackageQueryRequest, List<PackageDTO>>
+    public record GetAllPackagesQueryRequest() : IRequest<List<PackageDTO>>;
+    public class GetAllProvidersQueryHandler(IBaseRepository<Package> _packageRepository) : IRequestHandler<GetAllPackagesQueryRequest, List<PackageDTO>>
     {
-        public async ValueTask<List<PackageDTO>> Handle(GetAllPackageQueryRequest request, CancellationToken cancellationToken)
+        public async ValueTask<List<PackageDTO>> Handle(GetAllPackagesQueryRequest request, CancellationToken cancellationToken)
         {
             return await _packageRepository.GetAllAsync().Result.Where(p => p.IsActive).ProjectToType<PackageDTO>().ToListAsync();
         }

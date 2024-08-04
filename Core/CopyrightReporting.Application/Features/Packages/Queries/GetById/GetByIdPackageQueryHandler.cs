@@ -6,13 +6,15 @@ using Mediator;
 
 namespace CopyrightReporting.Application.Features.Packages.Queries.GetById
 {
-        public record GetByIdProviderQueryRequest(int Id) : IRequest<PackageDTO>;
-        public class GetByIdProviderQueryHandler(IBaseRepository<Package> _providerRepository) : IRequestHandler<GetByIdProviderQueryRequest, PackageDTO>
+        public record GetByIdPackageQueryRequest(int Id) : IRequest<PackageDTO>;
+        public class GetByIdPackageQueryHandler(IBaseRepository<Package> _packageRepository) : IRequestHandler<GetByIdPackageQueryRequest, PackageDTO>
         {
-            public async ValueTask<PackageDTO> Handle(GetByIdProviderQueryRequest request, CancellationToken cancellationToken)
-            {
-            Package? package = await _providerRepository.GetAsync(request.Id);
-                return package.Adapt<PackageDTO>();
-            }
+        
+
+        public async ValueTask<PackageDTO> Handle(GetByIdPackageQueryRequest request, CancellationToken cancellationToken)
+        {
+            Package? package = await _packageRepository.GetAsync(request.Id);
+            return package.Adapt<PackageDTO>();
         }
+    }
 }

@@ -1,5 +1,12 @@
 ﻿namespace CopyrightReporting.Application.Features.Musics.DTOs
 {
-    public record MusicDTO (int ProviderId, int MusicTypeId, string Title, int Duration, DateTime PublicationDate);
+    public record MusicDTO (
+        int Id,
+        string ProviderName, 
+        string MusicTypeName,
+        string ArtistName,
+        string Title, 
+        int Duration, 
+        DateTime PublicationDate );
 
 }

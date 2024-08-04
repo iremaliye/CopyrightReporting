@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CopyrightReporting.Application.Features.MusicTypes.Queries.GetAll
 {
-    public record GetAllMusicTypeQueryRequest() : IRequest<List<MusicTypeDTO>>;
-    public class GetAllMusicTypeQueryHandler(IBaseRepository<MusicType> _musicTypeRepository) : IRequestHandler<GetAllMusicTypeQueryRequest, List<MusicTypeDTO>>
+    public record GetAllMusicTypesQueryRequest() : IRequest<List<MusicTypeDTO>>;
+    public class GetAllMusicTypesQueryHandler(IBaseRepository<MusicType> _musicTypeRepository) : IRequestHandler<GetAllMusicTypesQueryRequest, List<MusicTypeDTO>>
     {
-        public async ValueTask<List<MusicTypeDTO>> Handle(GetAllMusicTypeQueryRequest request, CancellationToken cancellationToken)
+        public async ValueTask<List<MusicTypeDTO>> Handle(GetAllMusicTypesQueryRequest request, CancellationToken cancellationToken)
         {
            return await _musicTypeRepository.GetAllAsync().Result.Where(mt => mt.IsActive).ProjectToType<MusicTypeDTO>().ToListAsync();
         }

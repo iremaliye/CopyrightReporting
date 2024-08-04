@@ -12,7 +12,10 @@ namespace CopyrightReporting.Domain.Entities
 
         public Provider Provider { get; set; }
         public MusicType MusicType { get; set; }
+        public Artist Artist { get; set; }  
+        
         public ICollection<ListenLog> ListenLogs { get; set; }
-        public ICollection<Artist> Artists { get; set; }
+
+       // public ICollection<Artist> Artists { get; set; }
     }
 }

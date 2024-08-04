@@ -3,6 +3,8 @@ using CopyrightReporting.Application.Features.Packages.Commands.Delete;
 using CopyrightReporting.Application.Features.Packages.Commands.Update;
 using CopyrightReporting.Application.Features.Packages.DTOs;
 using CopyrightReporting.Application.Features.Packages.Queries.GetAll;
+using CopyrightReporting.Application.Features.Packages.Queries.GetById;
+using CopyrightReporting.Application.Features.Providers.DTOs;
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +14,8 @@ namespace CopyrightReporting.API.Controllers
     [ApiController]
     public class PackagesController(IMediator _mediator) : ControllerBase
     {
+
+
         [HttpPost]
         public async Task<IActionResult> AddAsync([FromBody] CreatePackageCommandRequest createPackageCommandRequest)
         {
@@ -21,11 +25,17 @@ namespace CopyrightReporting.API.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync([FromRoute] GetAllPackageQueryRequest getAllPackagessQueryRequest)
+        public async Task<IActionResult> GetAllAsync([FromRoute] GetAllPackagesQueryRequest getAllPackagesQueryRequest)
         {
-            return Ok(await _mediator.Send(getAllPackagessQueryRequest));
+            return Ok(await _mediator.Send(getAllPackagesQueryRequest));
         }
 
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetAsync([FromRoute] GetByIdPackageQueryRequest getByIdPackageQueryRequest)
+        {
+            PackageDTO data = await _mediator.Send(getByIdPackageQueryRequest);
+            return Ok(data);
+        }
 
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteAsync([FromRoute] DeletePackageCommandRequest deletePackageCommandRequest)

@@ -6,7 +6,7 @@ using Mediator;
 
 namespace CopyrightReporting.Application.Features.Artists.Commands.Create
 {
-    public record CreateArtistCommandRequest(int Name) : IRequest<ArtistDTO>;
+    public record CreateArtistCommandRequest(string Name) : IRequest<ArtistDTO>;
     public class CreateArtistCommandHandler(IBaseRepository<Artist> _artistRepository) : IRequestHandler<CreateArtistCommandRequest, ArtistDTO>
     {
         public async ValueTask<ArtistDTO> Handle(CreateArtistCommandRequest request, CancellationToken cancellationToken)

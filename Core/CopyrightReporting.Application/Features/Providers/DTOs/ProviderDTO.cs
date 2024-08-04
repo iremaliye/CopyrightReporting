@@ -1,4 +1,9 @@
-﻿namespace CopyrightReporting.Application.Features.Providers.DTOs
+﻿using CopyrightReporting.Application.Features.Musics.DTOs;
+
+namespace CopyrightReporting.Application.Features.Providers.DTOs
 {
-    public record ProviderDTO(string Name, string Email);
+    public record ProviderDTO(
+        string Name, 
+        string Email
+        );
 }

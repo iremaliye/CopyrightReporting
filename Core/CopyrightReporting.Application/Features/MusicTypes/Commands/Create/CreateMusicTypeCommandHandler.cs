@@ -6,10 +6,10 @@ using Mediator;
 
 namespace CopyrightReporting.Application.Features.MusicTypes.Commands.Create
 {
-    public record CrateMusicTypeCommandRequest(String name) : IRequest<MusicTypeDTO>;
-    public class CreateMusicTypeCommandHandler(IBaseRepository<MusicType> _musicTypeRepository) : IRequestHandler<CrateMusicTypeCommandRequest, MusicTypeDTO>
+    public record CreateMusicTypeCommandRequest(string Name) : IRequest<MusicTypeDTO>;
+    public class CreateMusicTypeCommandHandler(IBaseRepository<MusicType> _musicTypeRepository) : IRequestHandler<CreateMusicTypeCommandRequest, MusicTypeDTO>
     {
-        public async ValueTask<MusicTypeDTO> Handle(CrateMusicTypeCommandRequest request, CancellationToken cancellationToken)
+        public async ValueTask<MusicTypeDTO> Handle(CreateMusicTypeCommandRequest request, CancellationToken cancellationToken)
         {
             MusicType? musicType = await _musicTypeRepository.AddAsync(request.Adapt<MusicType>());
             await _musicTypeRepository.SaveAsync();

@@ -8,11 +8,11 @@ using Mediator;
 
 namespace CopyrightReporting.Application.Features.ListenLogs.Commands.Create
 {
-    public record CreateListenLogRequest(int MusicId,int PackageId,DateTime Duration) : IRequest<ListenLogDTO>;
+    public record CreateListenLogCommandRequest(int MusicId,int PackageId,int Duration) : IRequest<ListenLogDTO>;
     public class CreateListenLogCommandHandle(IBaseRepository<ListenLog> _listenLogRepository) :
-        IRequestHandler<CreateListenLogRequest, ListenLogDTO>
+        IRequestHandler<CreateListenLogCommandRequest, ListenLogDTO>
     {
-        public async ValueTask<ListenLogDTO> Handle(CreateListenLogRequest request, CancellationToken cancellationToken)
+        public async ValueTask<ListenLogDTO> Handle(CreateListenLogCommandRequest request, CancellationToken cancellationToken)
         {
             ListenLog? listenLog = await _listenLogRepository.AddAsync(request.Adapt<ListenLog>());
             await _listenLogRepository.SaveAsync();

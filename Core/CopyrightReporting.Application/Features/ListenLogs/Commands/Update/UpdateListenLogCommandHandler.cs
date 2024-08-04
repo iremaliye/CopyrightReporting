@@ -7,7 +7,7 @@ using Mediator;
 
 namespace CopyrightReporting.Application.Features.ListenLogs.Commands.Update
 {
-    public record UpdateListenLogCommandRequest(int Id, int MusicId, int PackageId, DateTime Duration, bool isActive): IRequest<ListenLogDTO>;
+    public record UpdateListenLogCommandRequest(int Id, int MusicId, int PackageId, int Duration, bool isActive): IRequest<ListenLogDTO>;
     public class UpdateListenLogCommandHandler(IBaseRepository<ListenLog> _listenLogRepository) : IRequestHandler<UpdateListenLogCommandRequest, ListenLogDTO>
     {
         public async ValueTask<ListenLogDTO> Handle(UpdateListenLogCommandRequest request, CancellationToken cancellationToken)
