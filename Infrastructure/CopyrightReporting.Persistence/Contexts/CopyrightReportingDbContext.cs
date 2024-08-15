@@ -17,8 +17,22 @@ namespace CopyrightReporting.Persistence.Contexts
         public DbSet<MusicType> MusicTypes { get; set; }
         public DbSet<Package> Packages { get; set; }
         public DbSet<Provider> Providers { get; set; }
+        
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
 
+            modelBuilder.Entity<Artist>()
+                .Property(a => a.Name)
+                .HasMaxLength(50);
+      
+
+            base.OnModelCreating(modelBuilder);
+
+        }
+
+        
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             IEnumerable<EntityEntry<BaseEntity>>? datas = ChangeTracker.Entries<BaseEntity>();

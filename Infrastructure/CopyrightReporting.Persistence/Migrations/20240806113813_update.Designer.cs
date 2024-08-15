@@ -3,6 +3,7 @@ using System;
 using CopyrightReporting.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CopyrightReporting.Persistence.Migrations
 {
     [DbContext(typeof(CopyrightReportingDbContext))]
-    partial class CopyrightReportingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240806113813_update")]
+    partial class update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace CopyrightReporting.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("ArtistMusic", b =>
-                {
-                    b.Property<int>("ArtistsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("MusicsId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ArtistsId", "MusicsId");
-
-                    b.HasIndex("MusicsId");
-
-                    b.ToTable("ArtistMusic");
-                });
 
             modelBuilder.Entity("CopyrightReporting.Domain.Entities.Artist", b =>
                 {
@@ -62,6 +50,30 @@ namespace CopyrightReporting.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Artists");
+                });
+
+            modelBuilder.Entity("CopyrightReporting.Domain.Entities.ArtistMusic", b =>
+                {
+                    b.Property<int>("ArtistId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MusicId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("ArtistId", "MusicId");
+
+                    b.HasIndex("MusicId");
+
+                    b.ToTable("ArtistMusic");
                 });
 
             modelBuilder.Entity("CopyrightReporting.Domain.Entities.ListenLog", b =>
@@ -230,19 +242,23 @@ namespace CopyrightReporting.Persistence.Migrations
                     b.ToTable("Providers");
                 });
 
-            modelBuilder.Entity("ArtistMusic", b =>
+            modelBuilder.Entity("CopyrightReporting.Domain.Entities.ArtistMusic", b =>
                 {
-                    b.HasOne("CopyrightReporting.Domain.Entities.Artist", null)
-                        .WithMany()
-                        .HasForeignKey("ArtistsId")
+                    b.HasOne("CopyrightReporting.Domain.Entities.Artist", "Artist")
+                        .WithMany("Musics")
+                        .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CopyrightReporting.Domain.Entities.Music", null)
-                        .WithMany()
-                        .HasForeignKey("MusicsId")
+                    b.HasOne("CopyrightReporting.Domain.Entities.Music", "Music")
+                        .WithMany("Artists")
+                        .HasForeignKey("MusicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Artist");
+
+                    b.Navigation("Music");
                 });
 
             modelBuilder.Entity("CopyrightReporting.Domain.Entities.ListenLog", b =>
@@ -283,8 +299,15 @@ namespace CopyrightReporting.Persistence.Migrations
                     b.Navigation("Provider");
                 });
 
+            modelBuilder.Entity("CopyrightReporting.Domain.Entities.Artist", b =>
+                {
+                    b.Navigation("Musics");
+                });
+
             modelBuilder.Entity("CopyrightReporting.Domain.Entities.Music", b =>
                 {
+                    b.Navigation("Artists");
+
                     b.Navigation("ListenLogs");
                 });
 

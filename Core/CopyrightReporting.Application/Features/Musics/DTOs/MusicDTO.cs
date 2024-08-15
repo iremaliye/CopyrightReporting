@@ -4,7 +4,7 @@
         int Id,
         string ProviderName, 
         string MusicTypeName,
-        string ArtistName,
+        //string ArtistName,
         string Title, 
         int Duration, 
         DateTime PublicationDate );

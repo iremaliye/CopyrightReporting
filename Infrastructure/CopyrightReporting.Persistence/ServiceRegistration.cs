@@ -19,6 +19,7 @@ namespace CopyrightReporting.Persistence
             services.AddScoped<IBaseRepository<Music>, BaseRepository<Music>>();
             services.AddScoped<IBaseRepository<ListenLog>, BaseRepository<ListenLog>>();
             services.AddScoped<IBaseRepository<Artist>, BaseRepository<Artist>>();
+            
 
         }
     }
