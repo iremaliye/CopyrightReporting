@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="7.2.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\CopyrightReporting.Application\CopyrightReporting.Application.csproj" />
+    <ProjectReference Include="..\CopyrightReporting.Infrastructure\CopyrightReporting.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,7 +7,8 @@ namespace CopyrightReporting.Persistence.Contexts
 {
     public class CopyrightReportingDbContext : DbContext
     {
-        public CopyrightReportingDbContext(DbContextOptions options) : base(options){ }
+        //public CopyrightReportingDbContext(DbContextOptions options) : base(options){ }
+        public CopyrightReportingDbContext(DbContextOptions<CopyrightReportingDbContext> options) : base(options) { }   
         public CopyrightReportingDbContext() { }
        
 

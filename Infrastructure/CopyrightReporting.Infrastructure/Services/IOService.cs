@@ -1,33 +1,33 @@
-﻿namespace CopyrightReporting.Infrastructure.Services
+﻿using CopyrightReporting.Application.Abstractions.Repositories;
+
+namespace CopyrightReporting.Infrastructure.Services
 {
-    public class IOService
+    public class IOService :IIOService
     {
-        public void WriteToText()
+      
+
+        public async Task WriteToText(IEnumerable<string> data, string filePath, string delimiter = "    ")
         {
-        }
-
-        public void WriteToExcel()
-        {
-        }
-
-        private void PutColumnName()
-        {
-
-        }
-        private void PutRowName()
-        {
-
-        }
-
-        private void ReadToText()
-        {
-
+            try
+            {
+                using (var writer = new StreamWriter(filePath))
+                {
+                    foreach (var line in data)
+                    {
+                        var formattedLine = string.Join(delimiter, line.Split('\t'));
+                        await writer.WriteLineAsync(formattedLine);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Hata yönetimi
+                Console.WriteLine($"Dosya yazma hatası: {ex.Message}");
+            }
         }
 
     }
 
-
-    //thread, thradhour/minute, queue, putColumnName, putRowName, 
 }
 
 

@@ -1,5 +1,7 @@
-﻿using CopyrightReporting.Application.Abstractions.Repositories;
+﻿using CopyrightReporting.Application;
+using CopyrightReporting.Application.Abstractions.Repositories;
 using CopyrightReporting.Domain.Entities;
+using CopyrightReporting.Infrastructure.Services;
 using CopyrightReporting.Persistence.Contexts;
 using CopyrightReporting.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +21,9 @@ namespace CopyrightReporting.Persistence
             services.AddScoped<IBaseRepository<Music>, BaseRepository<Music>>();
             services.AddScoped<IBaseRepository<ListenLog>, BaseRepository<ListenLog>>();
             services.AddScoped<IBaseRepository<Artist>, BaseRepository<Artist>>();
-            
+
+            services.AddScoped<IIOService, IOService>();
+            services.AddTransient<ServiceReportGenerator>();
 
         }
     }

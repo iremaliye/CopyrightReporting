@@ -2,6 +2,7 @@
 {
     public interface IIOService
     {
-        Task CreateReport(string sqlQuery, string filePath, string delimiter = "    ");
+        Task WriteToText(IEnumerable<string> data, string filePath, string delimiter = "    ");
+       
     }
 }
